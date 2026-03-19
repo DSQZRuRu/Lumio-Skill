@@ -1,5 +1,5 @@
 """
-Client Python pour l'API MindBoard
+Client Python pour l'API Lumio
 Intégration OpenClaw
 """
 
@@ -8,20 +8,20 @@ from typing import List, Dict, Optional
 import requests
 from datetime import datetime
 
-class MindBoardClient:
-    """Client pour interagir avec l'API MindBoard"""
+class LumioClient:
+    """Client pour interagir avec l'API Lumio"""
     
-    # Configuration publique MindBoard
+    # Configuration publique Lumio
     PROJECT_REF = "zdisvscoamxazjzncttt"
     ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaXN2c2NvYW14YXpqem5jdHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNTAzMTYsImV4cCI6MjA4NTYyNjMxNn0.IR-gbnaBwefMSNC2BrTlqMCBuieYY_e98A5n6WZnA5o"
     FUNCTION_NAME = "hyper-processor"
     
     def __init__(self, token: str):
         """
-        Initialise le client MindBoard
+        Initialise le client Lumio
         
         Args:
-            token: Token API généré depuis MindBoard
+            token: Token API généré depuis Lumio
         """
         self.base_url = f"https://{self.PROJECT_REF}.supabase.co/functions/v1/{self.FUNCTION_NAME}"
         self.headers = {
@@ -165,10 +165,10 @@ class MindBoardClient:
 
 
 class OpenClawSkill:
-    """Skill OpenClaw pour MindBoard"""
+    """Skill OpenClaw pour Lumio"""
     
     def __init__(self, token: str):
-        self.client = MindBoardClient(token)
+        self.client = LumioClient(token)
     
     def process_command(self, command: str) -> str:
         """
@@ -248,9 +248,9 @@ class OpenClawSkill:
 # Configuration depuis variables d'environnement
 def create_skill():
     """Crée une instance du skill avec la config depuis .env"""
-    token = os.getenv("MINDBOARD_TOKEN")
+    token = os.getenv("Lumio_TOKEN")
     
     if not token:
-        raise ValueError("MINDBOARD_TOKEN manquant. Créez un fichier .env avec votre token.")
+        raise ValueError("Lumio_TOKEN manquant. Créez un fichier .env avec votre token.")
     
     return OpenClawSkill(token)
